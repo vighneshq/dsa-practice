@@ -22,6 +22,7 @@ int dequeue(Queue*);
 // Functions for graph
 void createGraph(int*[], int [], int, int);
 void BFS(int**, int, int, bool[], int[], int);
+void printComponent(int**, int, int[], int);
 
 int main()
 {
@@ -71,34 +72,7 @@ int main()
 	}
 
 	// Print adjacency matrix for individual components
-	for(int i=1;i<=c;i++)
-	{
-		printf("Component %d\n  ", i);
-		for(int j=0;j<N;j++)
-		{
-			if(component[j] == i)
-			{
-				printf("%d ", j+1);
-			}
-		}
-		printf("\n");
-		for(int j=0;j<N;j++)
-		{
-			if(component[j] == i)
-			{
-				printf("%d ", j+1);
-				for(int k=0;k<N;k++)
-				{
-					if(component[k] == i)
-					{
-						printf("%d ", adj[j][k]);
-					}
-				}
-				printf("\n");
-			}
-		}
-	}
-
+	printComponent(adj, N, component, c);
 	return 0;
 }
 
@@ -183,6 +157,37 @@ void BFS(int** adj, int N, int source, bool visited[], int component[], int c)
 					visited[i] = true;
 					enqueue(&queue, i);
 				}
+			}
+		}
+	}
+}
+
+void printComponent(int**adj, int N, int component[], int c)
+{
+	for(int i=1;i<=c;i++)
+	{
+		printf("Component %d\n  ", i);
+		for(int j=0;j<N;j++)
+		{
+			if(component[j] == i)
+			{
+				printf("%d ", j+1);
+			}
+		}
+		printf("\n");
+		for(int j=0;j<N;j++)
+		{
+			if(component[j] == i)
+			{
+				printf("%d ", j+1);
+				for(int k=0;k<N;k++)
+				{
+					if(component[k] == i)
+					{
+						printf("%d ", adj[j][k]);
+					}
+				}
+				printf("\n");
 			}
 		}
 	}

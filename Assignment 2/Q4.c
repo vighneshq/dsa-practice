@@ -16,11 +16,12 @@ typedef struct nodeType
 void insert(Node**, int, int);
 void findLoops(Node*);
 void traverse(Node*);
-void assignColors(Node*);
+void assignColors(Node*, int);
 
 int main()
 {
 	Node* head = NULL;
+	int n = 0;
 	while(1)
 	{
 		int x, y, z;
@@ -30,8 +31,10 @@ int main()
 			break;
 		}
 		insert(&head, x, y);
+		n++;
 	}
 	findLoops(head);
+	assignColors(head, n);
 }
 
 void insert(Node** headRef, int x, int y)
@@ -100,7 +103,50 @@ void traverse(Node* head)
 	printf("\n");
 }
 
-void assignColors(Node* head)
+void assignColors(Node* head, int n)
 {
-	printf("Hello, World.\n");
+	if(head == NULL)
+	{
+		return;
+	}
+	int colors[n];
+	int val = 0, index = 0;
+	colors[index++] = val;
+	val++;
+
+	Node* curr = head->next;
+	Node* temp = head;
+	while(curr != NULL)
+	{
+		Node* prev = curr->prev;
+		if( prev == NULL || prev == temp)
+		{
+			if(index == 1)
+			{
+				colors[index++] = val;
+			}
+			else
+			{
+				colors[index] = colors[index-2];
+				index++;
+			}
+		}
+		else
+		{
+			val = (val+1)%3;
+			if(colors[prev->id] == val)
+			{
+				val = (val+1)%3;
+			}
+			colors[index++] = val;
+		}
+		temp = curr;
+		curr = curr->next;
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		printf("%d ", colors[i]);
+	}
+	printf("\n");
 }
