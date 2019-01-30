@@ -1,6 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+typedef enum {false, true} bool;
+
+bool check(char[], char[], int);
+
 int main()
 {
 	const int MAX = 1000;
@@ -17,32 +21,31 @@ int main()
 		scanf("%d", &a[i]);
 	}
 
-	// int *tlet = calloc(26, sizeof(int));
-	// int *plet = calloc(26, sizeof(int));
-
-	// for(int i=0;i<N;i++)4
-	// {
-	// 	char c = T[i];
-	// 	tlet[c-97]++;
-	// }
-	// int index = 0;
-	// while(P[index] != '\0')
-	// {
-	// 	char c = P[index++];
-	// 	plet[c-97]++;
-	// }
-	
-	// int i;
-	// for(i=0;i<N;i++)
-	// {
-	// 	index = a[i];
-	// 	char c = T[index-1];
-	// 	tlet[c-97]--;
-	// 	if(tlet[c-97] < plet[c-97])
-	// 	{
-	// 		break;
-	// 	}
-	// }
-	// printf("%d\n", i);
+	bool ok = true;
+	int i;
+	for(i=0;i<N;i++)
+	{
+		int index = a[i] - 1;
+		T[index] = '-';
+		ok = check(T, P, N);
+		if(!ok)
+		{
+			break;
+		}
+	}
+	printf("%d\n", i);	
 	return 0;
+}
+
+bool check(char T[], char P[], int N)
+{
+	int j = 0;
+	for(int i=0;i<N;i++)
+	{
+		if(T[i] == P[j])
+		{
+			j++;
+		}
+	}
+	return P[j] == '\0';
 }
