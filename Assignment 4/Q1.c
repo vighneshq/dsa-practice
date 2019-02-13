@@ -83,7 +83,13 @@ int main()
 		{
 			sum+= temp[i];
 		}
-		if(sum <= S)
+		if(sum == S)
+		{
+			max = k;
+			cost = sum;
+			break;
+		}
+		else if(sum <= S)
 		{
 			max = k;
 			cost = sum;
