@@ -103,8 +103,8 @@ int main()
     }
     else
     {
-        addEdge(edges, pos, pos[n-1], pos[n-3], e);
-        e++;
+        printf("-1\n");
+        return 0;
     }
     printf("%d\n", e);
     for(int i=0;i<e;i++)
