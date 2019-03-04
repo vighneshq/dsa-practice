@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 int indexable(int n, int m, int i, int j)
 {
@@ -33,10 +34,6 @@ int dfs(char** arr, int n, int m, int x, int y, char string[], int index, int le
     {
         ans += dfs(arr,n,m,x-1,y,string,index+1,len);
     }
-    if(!ans)
-    {
-        ans += dfs(arr,n,m,x,y,string,index+1,len);  
-    }
     return ans;
 }
 
@@ -58,17 +55,8 @@ int main()
     while(t--)
     {
         char string[MAX];
-        int len = 0;
-        while(1)
-        {
-            char c;
-            scanf("%c", &c);
-            if(c == '\n')
-            {
-                break;
-            }
-            string[len++] = c;
-        }
+        scanf("%s", string);
+        int len = strlen(string);.
         int ans = 0;
         for(int i=0;i<n;i++)
         {
@@ -78,8 +66,13 @@ int main()
                 {
                     ans += dfs(arr,n,m,i,j,string,0,len);
                 }
+                if(ans)
+                {
+                    goto out;
+                }
             }
         }
+        out:
         if(ans)
         {
             printf("Yes\n");

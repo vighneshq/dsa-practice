@@ -79,18 +79,9 @@ int main()
         }
         else
         {
-            int start = 0;
-            while(start < n)
-            {
-                if(group[start] == 0)
-                {
-                    break;
-                }
-                start++;
-            }
-            Range temp = {arr[start].l, arr[start].r};
+            Range temp = {arr[1].l, arr[1].r};
             count = 0;
-            for(int i=start;i<n;i++)
+            for(int i=1;i<n;i++)
             {
                 if(overlap(temp, arr[i]))
                 {
