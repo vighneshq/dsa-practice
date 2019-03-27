@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void sort(int arr[], int start, int end)
+int sort(int arr[], int start, int end)
 {
     for(int i=start+1;i<=end;i++)
     {
@@ -15,6 +15,7 @@ void sort(int arr[], int start, int end)
         }
         arr[j+1] = key;
     }
+    return arr[(start+end)/2];
 }
 
 int kthOrderStatistic(int arr[], int n, int k)
@@ -30,13 +31,11 @@ int kthOrderStatistic(int arr[], int n, int k)
     {
         if(i+4 < n)
         {
-            sort(arr, i, i + 4);
-            medians[index++] = arr[i+2];
+            medians[index++] = sort(arr, i, i + 4);
         }
         else
         {
-            sort(arr, i, n-1);
-            medians[index++] = arr[(i+n-1)/2];
+            medians[index++] = sort(arr, i, n-1);
         }
     }
     int pivot = kthOrderStatistic(medians, index, index/2);
@@ -57,13 +56,13 @@ int kthOrderStatistic(int arr[], int n, int k)
     {
         return kthOrderStatistic(lower, low, k);
     }
-    else if(k == low+1)
+    else if(k <= n - high)
     {
         return pivot;
     }
     else
     {
-        return kthOrderStatistic(higher, high, k - low - 1);
+        return kthOrderStatistic(higher, high, k - (n - high));
     }
     return 0;
 }
