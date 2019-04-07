@@ -54,6 +54,11 @@ Node removeMinHeap(Node minHeap[], int* size)
     return top;
 }
 
+int min(int a, int b)
+{
+    return a<b?a:b;
+}
+
 int main()
 {
     int n, m;
@@ -83,15 +88,21 @@ int main()
         scanf("%d %d %d", &src, &dest, &k);
 
         Node minHeap[10005];
-        int d[n], vis[n], index = 0;
+        int d[n], w_d[n], vis[n], index = 0;
         memset(vis, 0, n*sizeof(int));
         Node source = {src, 0, 0};
         vis[src] = 1;
+        w_d[src] = 0;
         d[src] = 0;
         insertMinHeap(minHeap, &index, source);
         int done = 0;
         while(index != 0)
         {
+            for(int i=1;i<=index;i++)
+            {   
+                printf("%d %d %d |", minHeap[i].v, minHeap[i].d, minHeap[i].w_d);
+            }
+            printf("\n");
             Node curr = removeMinHeap(minHeap, &index);
             if(curr.v == dest)
             {
@@ -110,10 +121,23 @@ int main()
                     if(w[curr.v][i] != -1)
                     {
                         Node new = {i, curr.d+1, curr.w_d + w[curr.v][i]};
-                        if(!vis[i] || new.w_d < d[i])
+                        if(!vis[i])
                         {
                             vis[i] = 1;
-                            d[i] = new.w_d;
+                            w_d[i] = new.w_d;
+                            d[i] = new.d;
+                            insertMinHeap(minHeap, &index, new);
+                        }
+                        else if(new.d < d[i])
+                        {
+                            d[i] = new.d;
+                            w_d[i] = min(w_d[i], new.w_d);
+                            insertMinHeap(minHeap, &index, new);
+                        }
+                        else if(new.w_d < w_d[i])
+                        {
+                            w_d[i] = new.w_d;
+                            d[i] = min(d[i], new.d);
                             insertMinHeap(minHeap, &index, new);
                         }
                     }

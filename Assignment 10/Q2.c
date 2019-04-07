@@ -27,28 +27,20 @@ void maxHeapify(int maxHeap[], int size, int i)
     }
 }
 
-void insertMaxHeap(int maxHeap[], int* size, int elem)
-{
-    *size += 1;
-    int index = *size;
-    maxHeap[index] = elem;
-    while(index > 1 && maxHeap[index/2] < maxHeap[index])
-    {
-        swap(&maxHeap[index/2], &maxHeap[index]);
-        index /= 2;
-    }
-}
-
 int main()
 {
     int n, k;
     scanf("%d %d", &n, &k);
 
-    int maxHeap[n+1], index = 0, elem;
-    for(int i=0;i<n;i++)
+    int maxHeap[n+1];
+    for(int i=1;i<=n;i++)
     {
-        scanf("%d", &elem);
-        insertMaxHeap(maxHeap, &index, elem); 
+        scanf("%d", &maxHeap[i]);
+    }
+
+    for(int i=n/2;i>=1;i--)
+    {
+        maxHeapify(maxHeap, n, i);
     }
 
     int meat = 0;
@@ -56,7 +48,7 @@ int main()
     {
         meat += maxHeap[1];
         maxHeap[1] /= 2;
-        maxHeapify(maxHeap, index, 1);
+        maxHeapify(maxHeap, n, 1);
     }
     printf("%d\n", meat);
     return 0;
