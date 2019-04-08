@@ -3,7 +3,7 @@
 
 int indexable(int i, int j, int n)
 {
-    return (0<=i && i <n-1) && (0<= j && j<n-1);
+    return (0<=i && i <n) && (0<= j && j<n);
 }
 
 void dfs(int adj[], int n, int i, int j, int t, int vis[])
@@ -15,7 +15,7 @@ void dfs(int adj[], int n, int i, int j, int t, int vis[])
     {
         int row = i+l[x];
         int col = j+r[x];
-        if(!vis[row*n+col] && adj[row*n+col] <= t)
+        if(indexable(row,col,n) && !vis[row*n+col] && adj[row*n+col] <= t)
         {
             dfs(adj, n, row, col, t, vis);
         }
@@ -36,8 +36,8 @@ int main()
             m = (m>adj[i*n+j])?m:adj[i*n+j];
         }
     }
-    int l = 0, h = m, ans = m;
-    while(l<h)
+    int l = adj[0], h = m, ans = m;
+    while(l<=h)
     {
         int t = (l+h)/2;
         int vis[n*n];

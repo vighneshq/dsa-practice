@@ -98,6 +98,7 @@ int main()
         int done = 0;
         while(index != 0)
         {
+            // Just printing for veritifcation
             for(int i=1;i<=index;i++)
             {   
                 printf("%d %d %d |", minHeap[i].v, minHeap[i].d, minHeap[i].w_d);
