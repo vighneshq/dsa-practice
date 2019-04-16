@@ -86,19 +86,28 @@ int main()
     int wt = 0, ct = 0, enqueued = 0;
     while(1)
     {
+        if(isEmpty(q))
+        {
+            if(enqueued == n)
+            {
+                break;
+            }
+            ct = p[enqueued].t;
+        }
         while(enqueued < n && p[enqueued].t <= ct)
         {
             enqueue(q, p[enqueued]);
             enqueued++;
         }
-        if(isEmpty(q))
-        {
-            break;
-        }
         Process curr = dequeue(q);
-        printf("%d ", curr.i);
         ct += min(k, curr.r);
+        printf("%d %d\n", curr.i, ct);
         curr.r -= min(k, curr.r);
+        while(enqueued < n && p[enqueued].t <= ct)
+        {
+            enqueue(q, p[enqueued]);
+            enqueued++;
+        }
         if(curr.r == 0)
         {
             wt += ct - curr.t - curr.e;
